@@ -40,4 +40,17 @@
 
        - virtual, key , hardware 
 
- 
+### How can users Access AWS ? 
+
+- Three options :
+
+        - AWS Management console (protected by password + MFA)
+        - AWS CLI (protected by access keys)
+        - AWS SDK(s/w development kit) (protected by access keys)
+
+- user manages their own access keys(generated through AWS console)
+- DON'T share your ACCESS KEYS they are private to you
+
+### AWS CloudShell : 
+
+- 
