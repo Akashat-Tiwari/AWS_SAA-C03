@@ -22,6 +22,8 @@
              Metadata = information describing the photo
 
 - In total AWS provides 475 services (8 AUG. 2026)
+- Audit means systematically checking and reviewing something to make sure it is correct, secure, compliant, and following the rules.
+- In simple words, Audit = Check everything and verify what happened.
 
 ## IAM : 
 
@@ -51,6 +53,40 @@
 - user manages their own access keys(generated through AWS console)
 - DON'T share your ACCESS KEYS they are private to you
 
-### AWS CloudShell : 
+### AWS CloudShell : can be used on specific regions only, just like a CLI or terminal built inside the console
 
-- 
+
+### IAM roles for services : 
+
+- some AWS service will need to perform actions on your behalf
+- to do so, we assign permissions to AWS services or AWS entities with IAM roles
+- common roles : EC2 instance roles, Lambda function roles, and roles for cloudFormation 
+
+### IAM security Tools :
+
+- IAM credentials report(account-level)
+- IAM Access Advisor(user-level)
+
+### IAM guidelines & Best Practices : 
+
+- Dont use the root account except for the AWS account setup
+- one physical user = one aws user
+- assign users to groups and assign permissions to groups
+- create a strong password policy
+- use and enforce the use of MFA
+- create and use roles for giving permissions to AWS services
+- use access keys for programmatic access(CLI/SDK)
+- Audit permissions of your account using IAM credentials report and IAM Access Advisor
+- never share IAM users and Access keys
+
+### IAM section summary : 
+
+- users : mapped to a physical user, has a password for AWS console
+- groups : contains users only
+- policies : JSON document that outlines permissions for users or groups
+- roles : for AWS entities or AWS services like EC2 instance
+- security : MFA + password policy
+- AWS CLI : manage your AWS services using the command line
+- AWS SDK : manage your AWS services using a programming language
+- Access keys : access AWS using the CLI or SDK
+- Audit : IAM credential reports and IAM Access Advisor
