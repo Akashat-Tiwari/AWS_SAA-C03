@@ -16,6 +16,7 @@
 
 ### Launching an EC2 instance running Linux 
 
+- user data script only run once, when the system starts
+- if you stop an instance and you start it later, the associated public IP will change but the private IP will remains the same 
 - 
-
 
