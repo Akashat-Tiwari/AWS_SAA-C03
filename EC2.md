@@ -119,3 +119,47 @@
       - The .pem key pair file used when launching the instance
       - Port 22 (SSH) allowed in the Security Group
       - ssh -i YOUR_KEY.pem USERNAME@PUBLIC_IP , username = ec2-user, ubuntu = ubuntu, i = identity
+
+## procedure :
+
+### SSH into an AWS EC2 Instance from Linux
+
+- Launch an **EC2 instance** on AWS.
+- While launching it, **create or select a Key Pair**.
+- When creating a new Key Pair, download the file ending in **`.pem`**.
+  - Example: `my-ec2-key.pem`
+  - This file is your **private SSH key**.
+  - Keep it safe and never share it.
+
+- Make sure your EC2 instance is in the **Running** state.
+
+- Go to:
+  - **AWS Console → EC2 → Instances**
+  - Select your EC2 instance.
+
+- Copy the instance's **Public IPv4 address**.
+  - Example: `13.233.100.50`
+
+- Check which operating system your EC2 instance is using:
+  - **Ubuntu** → Username: `ubuntu`
+  - **Amazon Linux** → Username: `ec2-user`
+
+- Ensure the EC2 **Security Group** allows SSH:
+  - Type: `SSH`
+  - Protocol: `TCP`
+  - Port: `22`
+  - Source: Preferably **My IP**
+
+- Open your **Linux/WSL terminal**.
+
+- Go to the folder containing your `.pem` file:
+
+- Give the .pem file secure permissions:
+   - chmod 400 my-ec2-key.pem : owner-read, others-no acces
+
+- ssh -i YOUR_KEY.pem USERNAME@PUBLIC_IP
+  
+- your terminal prompt will change to something similar to:
+   -[ec2-user@ip-172-30-4-258 ~]$
+
+- You are now connected to and controlling your AWS EC2 instance remotely.
