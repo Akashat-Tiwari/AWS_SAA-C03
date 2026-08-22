@@ -109,4 +109,13 @@
 
 ### SSH using Linux/Mac :
 
-- 
+- SSH allows you to control a remote machine, all from the CLI
+- it like controling the remote machine if you're inside it , that's all from the CLI
+
+- To SSH from your Linux/WSL terminal into an AWS EC2 instance, you need:
+
+      - A running EC2 instance
+      - Its public IPv4 address or public DNS
+      - The .pem key pair file used when launching the instance
+      - Port 22 (SSH) allowed in the Security Group
+      - ssh -i YOUR_KEY.pem USERNAME@PUBLIC_IP , username = ec2-user, ubuntu = ubuntu, i = identity
