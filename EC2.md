@@ -85,7 +85,7 @@
 
 - security group can be attached to multiple instances
 - its good to maintain a separate security group for SSH access
-- if your application is not accessible ie "time out" then its maybe a security group issue but if its a "connection refused" then its a application error
+- ***if your application is not accessible ie "time out" then its maybe a security group issue but if its a "connection refused" then its a application error
 
 - all inbound traffic is blocked and outbound traffic is authorised by default
 
@@ -103,5 +103,10 @@
 - 443 : HTTPS(access secured websites)
 - 3389 : RDP(remote desktop protocol): log into a windows instance
   
+### SSH overview:
 
+<img width="700" height="500" alt="image" src="https://github.com/user-attachments/assets/e688219c-ed94-4afd-b45a-c0b28482ed0f" />
 
+### SSH using Linux/Mac :
+
+- 
