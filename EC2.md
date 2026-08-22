@@ -163,3 +163,10 @@
    -[ec2-user@ip-172-30-4-258 ~]$
 
 - You are now connected to and controlling your AWS EC2 instance remotely.
+
+
+## EC2 instance connect: 
+
+- instance-> connect-> press final connect -> AWS CLI (connected)
+- instance-> security-> security group-> inbound rules-> remove 22-> not it won't connect
+- again add 22-> then it will connect to EC3 instance connect   
