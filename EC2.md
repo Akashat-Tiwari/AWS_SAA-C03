@@ -19,7 +19,7 @@
 - user data script only run once, when the system starts
 - if you stop an instance and you start it later, the associated public IP will change but the private IP will remains the same 
  
- ### EC2 instance types :
+ ### EC2 instance types : there are 7 different types 
      
 - AWS has the following naming convention :-
 
@@ -28,20 +28,25 @@
            - 5 : generation
            - 2xlarge : size within the instance class
 
-### general purpose
+### 1. general purpose
 -  t2.micro/t3.micro : general purpose EC2 instance, that provides a balance between compute, memory, networking
 -  used for web servers and code repositories as they require similar proportions of resources 
 
-### compute optimised : 
+### 2. compute optimised : 
 - great for compute intense tasks that requires high performance processors :
-
+- starts with C name like C5, C4, etc
+  
       - batch processing workloads
       - high performance web servers
       - scientific modelling and machine learning
       - high performance computing (HPC)
       - dedicated gaming servers
 
-### memory optimised : 
+### 3.memory optimised : 
 - fast performance for workloads that process large data sets in memory
+- starts with R, X, Z
+
+      - applications performing real time 
+  
 
         - 
