@@ -42,11 +42,66 @@
       - high performance computing (HPC)
       - dedicated gaming servers
 
-### 3.memory optimised : 
+### 3. memory optimised : 
 - fast performance for workloads that process large data sets in memory
 - starts with R, X, Z
 
-      - applications performing real time 
+      - applications performing real time processing of big unstructured data
+      - In- memory databases optimisation for BI(business intelligence)
+      - Distributed web scale cache stores
+
+### 4. storage optimised :
+- great for storage intensive tasks that require high, sequential read and write access to large data sets on local storage
+    
+      - high freq. online transaction processing (OLTP) systems
+      - relational and NoSQL databases
+      - cache for in memory databases
+
+### observation : x relates to vCPU
+      - t2.micro: 0 vCPU, t2.xlarge: 4 vCPU, m5.2xlarge: 8 vCPU
+
+## Security group : 
+
+- are fundamental of the network security in AWS
+- how traffic is going into or out of the EC2 instance
+- security group only contain "allow" rules
+<img width="400" height="500" alt="image" src="https://github.com/user-attachments/assets/4bc8fec6-8373-4092-a6fd-41462493325d" />
+
+
+
+
+
+
+- security groups are acting as firewall on EC2 instances
+
+      - they regulate : access to ports, authorised IP ranges (IPv4-IPv6)
+                        control of inbound network(from other to instance) and outbound network(from instance to other)
+
+<img width="800" height="500" alt="image" src="https://github.com/user-attachments/assets/6e89342f-d682-4feb-a689-28b81f680f08" />
+
+
+
+
+
+- security group can be attached to multiple instances
+- its good to maintain a separate security group for SSH access
+- if your application is not accessible ie "time out" then its maybe a security group issue but if its a "connection refused" then its a application error
+
+- all inbound traffic is blocked and outbound traffic is authorised by default
+
+- referencing other security groups:
+ <img width="750" height="500" alt="image" src="https://github.com/user-attachments/assets/20033946-576d-4eb5-bcef-4b9b70e5effe" />
+
+
+### classic ports to know :
+
+- 22 : SSH(secure login): log into a linux instance
+- 21 : FTP(upload files into a file share)
+- 22 : SFTP(upload files using SSH)
+- 23 : Telnet(login)
+- 80 : HTTP(access unsecured websites)
+- 443 : HTTPS(access secured websites)
+- 3389 : RDP(remote desktop protocol): log into a windows instance
   
 
-        - 
+
