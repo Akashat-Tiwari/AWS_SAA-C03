@@ -234,4 +234,34 @@
 
  <img width="800" height="660" alt="WhatsApp Image 2026-09-18 at 15 06 58" src="https://github.com/user-attachments/assets/4be4f902-10e3-4de4-a33c-7f8c7ed10d13" />
 
-         
+
+### Spot instances : 
+
+- define max spot price and get the instance while current spot price < max spot price
+- once the current spot price > max spot price : you will get a 2 min grace period to stop or terminate (after saving or retreiving your essentials)
+- better for distributed workloads (mentioned in above topic), not suitable for critical jobs
+  
+### A spot request :
+
+<img width="780" height="660" alt="WhatsApp Image 2026-09-18 at 22 16 02" src="https://github.com/user-attachments/assets/d145b685-b59c-418f-94e7-acc8cbb78b28" />
+
+
+### spot fleets : set of spot instances + on-demand instances(optional)
+
+- spot fleets allow us to automatically request spot instances with the lowest price
+- spot fleet will try to meet the target capacity with price constraint
+
+      - define possible launch pools(instance attributes): instance type(m5.large),OS,tenancy,AZ
+      - can have multiple launch pools, so the spot fleet can choose
+      - spot fleet stop launching instances when reaching max cost or capacity
+  
+- strategies to allocate spot instances:
+
+      - lowestPrice: from the pool with the lowest price (cost optimisation,short workload)
+      - diversified: distributed across all pools(great for availability, long workloads)
+      - capacityOptimised: pool with the optimal capacity for the no of instances
+      - priceCapacityOptimised(recommended): pools with the highest capacity available, then select the pool with the lowest price (best choice for most workloads)
+
+# EC2-SAA level
+
+### 
