@@ -169,4 +169,69 @@
 
 - instance-> connect-> press final connect -> AWS CLI (connected)
 - instance-> security-> security group-> inbound rules-> remove 22-> not it won't connect
-- again add 22-> then it will connect to EC3 instance connect   
+- again add 22-> then it will connect to EC3 instance connect
+
+### to provide aws credentials(permissions/access) to an EC2 instance by IAM roles only 
+- instance->actions->security->modify iam roles->choose iam role->save
+
+
+### EC2 instances purchasing options :
+<img width="750" height="500" alt="WhatsApp Image 2026-09-18 at 12 26 52" src="https://github.com/user-attachments/assets/392dbbec-eeff-4b99-b6f1-4a87e03d8f11" />
+
+- EC2 on demand : pay for what you use, linux/windows : billing per sec, after the first min, other O.S : billing per hour
+
+      - highest cost, but no long term commitment
+      - recommended for "short-term and un-interrupted workloads", where you can't predict how the application will behave
+
+- EC2 reserved instances : upto 72% discount compared to on demand, reservation period: 1y(+discount)/3y(+++discount)
+
+      - payments options : no upfront(+), partial upfront(++), all upfront(+++) 
+      - reserve a specific instance attributes (instance type,region,tenancy,os)
+      - reserved instance's scope : regional/zonal (reserve capacity in an AZ)
+      - recommended for steady-state usage applications(think database), you can sell/buy in the reserved instance marketplace
+
+- convertible reserved instance : upto 66% discount
+
+      - can change the EC2 instance attributes (instance type, instance family, OS, tenancy, scope)
+
+- EC2 savings plans : upto 72% (same as RIs)
+
+      - usage beyond EC2 savings plans is billed at the on-demand price
+      - locked to a specific family and region (eg, M5 in ap-south-1)
+      - Flexible across :
+                      - instance size(eg, m5.xlarge, m5.2xlarge)
+                      - OS
+                      - tanancy (host, dedicated, default)
+
+- spot instances : upto 90% discount compared to on-demand, making it the most "cost-efficient" instances in AWS
+
+      - instances that you can "lose" at any point of time if your max price is less than the current spot price
+      - useful for workloads that are resilient to failure : batch jobs, data analysis, image processing, any distributed workloads, workloads with a flexible start            and end time
+      - not suitable for critical jobs or databases
+
+- EC2 dedicated hosts : access to a physical server, with EC2 instance capacity fully dedicated to your use
+     
+      - allows you to use your existing server-bound software licenses (per-socket, per-core, pe-VM software licenses)
+      - purchasing options : on-demand: pay per sec for active dedicated host and reserved-1/3y (no upfront, partial upfront, all  upfront) 
+      - the most expensive option
+      - useful for s/w that have complicated licensing model(BYOL) or for companies that have strong regulatory or compliance needs
+
+- EC2 dedicated instances : own instance own hardware
+
+      - instances run on h/w that's dedicated to you
+      - may share the h/w with other instances in same account but never with different customer
+      - no control over instance placement (can move h/w after start/stop)
+
+- EC2 capacity reservations :
+
+      - reserve on demand instance capacity in a specific AZ for any duration
+      - no time commitment(create/cancel anytime), no billing discounts 
+      - combined with Regional reserved instances and saving plans to benefit from billing discounts
+      - you are charged at on-demand rate whether you run instances or not
+      - suitable for short term , un-interrupted workloads that needs to be in a specific AZ
+
+### you should know which type of instance is the right one based on given workloads 
+
+ <img width="800" height="660" alt="WhatsApp Image 2026-09-18 at 15 06 58" src="https://github.com/user-attachments/assets/4be4f902-10e3-4de4-a33c-7f8c7ed10d13" />
+
+         
