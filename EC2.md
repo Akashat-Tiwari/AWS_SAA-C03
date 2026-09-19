@@ -264,4 +264,43 @@
 
 # EC2-SAA level
 
+## Private, public vs elastic IP 
+
+### IPV4 :
+- 2^32 = 4.3 billion but some are reserved for private networks, loopback, multicasting, experimental (0.6 bilion)
+- so total addresses available for ordinary public internet allocation are 3.7 billion
+
+### public IP 
+- the machine can be identified on the internet(www) ie publicaly available 
+- the IP must be unique across the whole web
+
+### private IP
+- the machine can only be identified on the private network
+- the IP must be unique across the private network
+- but the two different private networks(companies) can have same private IPs
+- machines connect to WWW using a NAT + internet gateway
+
+### elastic IP
+- when you stop & then start an EC2 instance, it can change it public IP, but if you want a fixed public IP for your instance, you need a Elastic IP
+- An elastic IP is public IPV4 and you own it as long as you don't delete it
+- you can attach it to one instance at a time (ofc)
+- you can only have 5 Elastic IP in your account(can be increased by requesting AWS)
+- *** used to mask the failure of an instance by quickly switching the address to another instance in your account
+- disadvantages : of using an Elastic IP: try to avoid using it  
+   
+      - poor architectural decisions
+      - instead, use a random public IP and register a DNS name to it
+      - also, you can use a Load Balancer and don't use a public IP
+
+### IPs in AWS EC2 
+
+- by default, an EC2 instance comes with
+
+      - a private IP for the internal AWS network
+      - p public IP for the WWW
+
+- when we are doing SSH into our EC2 machines we can only use the public IP, not the private IP because we are not in the same network
+
+## EC2 placement groups 
+
 ### 
