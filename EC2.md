@@ -303,4 +303,9 @@
 
 ## EC2 placement groups 
 
-### 
+- EC2 instance placement strategy can be defined using placement groups
+- while creating a placement group you specify one of the three strategies for the group
+
+      - cluster : high performance but high risk: clusters instances into a low-latency group in a single AZ
+      - spread : for critical applications/jobs: spreads instances across different h/w (max 7 instances per placement group per AZ)
+      - partition : hadoop, cassandra, kafka: spreads instances across many different partitions within an AZ. scales to 100s of EC2 instances per group 
