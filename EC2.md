@@ -306,6 +306,54 @@
 - EC2 instance placement strategy can be defined using placement groups
 - while creating a placement group you specify one of the three strategies for the group
 
-      - cluster : high performance but high risk: clusters instances into a low-latency group in a single AZ
-      - spread : for critical applications/jobs: spreads instances across different h/w (max 7 instances per placement group per AZ)
-      - partition : hadoop, cassandra, kafka: spreads instances across many different partitions within an AZ. scales to 100s of EC2 instances per group 
+      - cluster : for high performance but high risk: clusters instances into a low-latency group in a single AZ
+      - spread : for critical applications/jobs: spreads instances across different h/w (max 7 instances per placement group per AZ) one h/w for a instance
+      - partition : for distributed jobs: hadoop, cassandra, kafka: spreads instances across many different partitions within an AZ. scales to 100s of EC2 instances per group
+
+### cluster PG 
+<img width="780" height="560" alt="image" src="https://github.com/user-attachments/assets/3cb99282-5329-4a5c-a8dd-e187ef661580" />
+
+### spread PG 
+<img width="780" height="560" alt="image" src="https://github.com/user-attachments/assets/a01f0bcd-9df4-4879-afe6-c84189899b1c" />
+
+### partition PG 
+<img width="780" height="560" alt="image" src="https://github.com/user-attachments/assets/dc9f4ec8-7b2f-4c5d-8dd3-e4280c6aff07" />
+
+## Elastic network interfaces
+
+- logical component in a VPC that represents a virtual network card (VNC)
+- the ENI can have the following attributes:
+
+      - primary private IPV4, one or more secondary private IPV4
+      - one elastic IPv4 per private IPv4
+      - one public IPV4
+      - a MAC address
+      - one or more security groups
+
+- bound to a specific AZ,
+- ***the private IP will change from the first instance and will be attached to other instance, that's very helpful in case of instance failure/failovers
+<img width="600" height="600" alt="WhatsApp Image 2026-09-20 at 14 08 07" src="https://github.com/user-attachments/assets/28b86bc5-8db7-41ae-8d4b-f0540a90c072" />
+
+## EC2 Hibernate
+
+- on starting an instance/machine :
+
+      - the OS boots up, and the EC2 user Data script is run
+      - then your application starts, caches get warmed up, that can take time
+
+- stop : the data on disk(EBS) is kept intact for the next start
+- terminate : any root EBS volume(set-up to be destroyed) is lost, but if not set-up to be destroyed then its kept intact
+- hibernate :
+
+
+<img width="650" height="800" alt="WhatsApp Image 2026-09-20 at 21 44 56" src="https://github.com/user-attachments/assets/da28b7f7-5b0d-4c62-97f0-9226e5273f69" />
+
+- GOOD to know about Hibernate 
+
+      - instance RAM size must be less than 150 GB
+      - AMI: amazon linux, ubuntu, linux AMI, RHEL, etc
+      - rootVolume: must be EBS, encrypted, large enough, not instance store
+      - availabe for on-demand, reserved, spot instances
+      - an instance cannot be hibernated for more than 60 days  
+
+- can verify hibrenation using uptime command ie if instance is hibernated, uptime is simply not start with zero while if not hibernated the uptime again start with zero always 
