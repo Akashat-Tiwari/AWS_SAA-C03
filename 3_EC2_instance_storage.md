@@ -17,3 +17,20 @@
       - use case: preserve root volume when instance is terminated
 
 ## EBS Snapshots
+
+- backup(snapshot) of the EBS volume at a point of time
+- not necessary to detach the volume to do snapshot, but its recommended
+- can copy snapshots across AZ or region
+- EBS snapshots FEATURES :
+
+      - EBS snapshot Archieve: move snapshot to "archieve tier"(75% cheaper), takes within 24-72 hrs for restoring the archieve
+      - recycle Bin for EBS snapshot: to recover the snapshots after accidental deletion, specify the retention period (from 1 day to 1 year)
+      - Fast Snapshot Restore(FSR): forcefull initializaton of snapshot to have no latency on the first use,(simply: forcefully restoring the snapshot), very expensive feature
+
+  <img width="400" height="400" alt="WhatsApp Image 2026-09-22 at 23 58 55" src="https://github.com/user-attachments/assets/760e214c-2600-4719-b770-8e303543f976" />
+
+- *EBS volume is specific AZ bound but snapshot is not(EBS vol in AZ1 -> snapshot -> restore it but in different AZ -> EBS vol in AZ2)
+
+## AMI Overview
+
+-
