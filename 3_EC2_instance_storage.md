@@ -33,4 +33,16 @@
 
 ## AMI Overview
 
--
+- Amazon Machine Image : template used to create an EC2 instance.
+- When you rent a virtual, empty server (EC2), you need an operating system and software to make it run. The AMI is the pre-packaged bundle that contains all of that software.
+- AMI are built for a specific region (can be copied across regions)
+- Every time you launch a new EC2 instance, you must select an AMI first
+
+      - a public AMI (provided by AWS) like Amazon Linux 2023
+      - your own AMI (make and maintain them by yourself)
+      - An AWS marketplace AMI: an AMI someone else made and sold it
+
+- AMI process
+<img width="700" height="600" alt="WhatsApp Image 2026-09-23 at 23 00 54" src="https://github.com/user-attachments/assets/80dcb7d7-184b-4fe4-bf59-282201a7347b" />
+
+## EC2 instance store 
