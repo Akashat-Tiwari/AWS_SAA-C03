@@ -53,6 +53,41 @@
 - good only for temporary content/cache/buffer
 - Because of the risk of accidental data loss, AWS highly recommends using EBS volumes for almost everything: standard applications, databases
 
-## EBS vol types 
+## EBS vol types (6 types) 
+
+- gp2/gp3 : general purpose SSD vol that balances price and performance
+- io1/io2 block express : highest performance SSD vol for critical, low-latency, high-throughput workloads
+- st1 : low cost HDD vol designed for frequently accessed workloads
+- sc2 : lowest cost HDD vol designed for less frequently accessed workloads
+- * only gp2/gp3 and io1/io2 block express can be used as boot volumes(root OS is going to run)
+
+### general purpose SSD ie gp2/gp3
+
+- 1GB-16TB
+- both are used for cost-effective storage
+- in gp3 you can independently set the IOPS and the throughput, whereas for gp2 they are linked together
+
+### provisioned IOPS(PIOPS) SSD ie io1/io2 block express
+
+- 4GB-16TB
+- great for databases workloads
+- PIOPS (io1/io2) supports EBS multi-attach feature
+
+### Hard Disk Drives(HDD) ie st1/sc1
+
+- 125GB- 16TB
+- cannot be a boot vol
+- throughput optimised HDD => st1
+- cold HDD => sc1(lowest cost)
+
+# boot volume => both gp2/gp3 and io1/io2 included (st1/sc1 not included),  EBS multi-attach => io1/io2 block express
+
+## EBS multi-attach(AZ bounded)
+
+- attach the same EBS vol to multiple EC2 instances in the same AZ
+- ** limitation: upto "16" EC2 instances at a time (not more than it)
+- use case: higher application availibility in clustured linux application (eg. Teradata)
+
+## EBS encryption 
 
 - 
