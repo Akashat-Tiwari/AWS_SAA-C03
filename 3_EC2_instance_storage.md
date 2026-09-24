@@ -46,3 +46,13 @@
 <img width="700" height="600" alt="WhatsApp Image 2026-09-23 at 23 00 54" src="https://github.com/user-attachments/assets/80dcb7d7-184b-4fe4-bf59-282201a7347b" />
 
 ## EC2 instance store 
+
+- the EC2 Instance Store is the built-in, physical hard drive attached directly to the EC2 server.
+- Fixed size based on the instance type while EBS vol: Can increase size or detach and move to a new instance 
+- ephemeral storage: Your data will be permanently lost if, You Stop/terminate the instance and the physical hardware fails.
+- good only for temporary content/cache/buffer
+- Because of the risk of accidental data loss, AWS highly recommends using EBS volumes for almost everything: standard applications, databases
+
+## EBS vol types 
+
+- 
