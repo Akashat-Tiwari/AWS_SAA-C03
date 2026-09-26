@@ -90,4 +90,56 @@
 
 ## EBS encryption 
 
+- encryption & decryption are handled in behind by EC2 and EBS(nothing to do)
+- EBS encryption leverages keys from KMS (AES-256)
+- Encryption:
+
+      - create an EBS snapshot of the EBS vol
+      - encrypt the EBS snapshot [using copy]
+      - create new EBS vol from this snapshot(vol will also be encrypted) and you can attach the encrypted vol to the original instance
+      - shortcut: EBS vol-> EBS snapshot-> restore/create vol from snapshot(check the encryption block) -> created vol is encrypted
+
+  ## Amazon EFS: Elastic File System
+
+- managed NFS(network file system) that can be mounted on many instances (instances can be in different AZ)
+- highly available, scalable, expensive(3x of gp2), pay per use
 - 
+<img width="700" height="600" alt="WhatsApp Image 2026-09-26 at 18 54 23" src="https://github.com/user-attachments/assets/07e1e92b-9bcd-4aa9-aaee-9787ed9d44e3" />
+
+- use cases: content management, web serving, data sharing, wordpress, uses NFSv4.1 protocol internally
+- only compatible with linux based AMI(not windows)
+- EFS scales automatically, pay-per-use, no capacity planning in advance!
+- EFS performance:
+
+      - performance mode(set at EFS creation time): GP(default): (web server) and Max i/o(big data, media processing)
+      - throughput mode:
+                        - bursting: provides throughput that scales with the amount of storage for workloads
+                        - provisioned: if you estimate the throughput requirement, you configure the throughput and pay for it 
+                        - elastic(recommended): regardless of the size of storage , give the required throughput or i/o ie for unpredictable i/o or throughput
+
+### EFS storage classes:
+- storage tiers (lifecycle management feature-move file after N days)
+
+      - standard: for frequently accessed files
+      - infrequent access (EFS-IA): cost to retrieve files, lower price to store 
+      - archive: rarely accessed data(few times each year), 50% cheaper
+      - implement *lifecycle policies* to move files between storage tiers
+
+- best practice: performance mode-> GP, throughput mode-> Elastic and and enhanced
+
+## EBS Vs EFS 
+
+- *EBS*
+
+      - one instance(except multi-attach io1/io2)
+      - are locked at the AZ level
+      - gp2: io incr if the disk size incr, gp3/io1: io incr independently
+      - to migrate EBS vol across AZ, take a snapshot. restore the snapshot to another AZ
+      -* root EBS vol of instances get terminated by default if the instance gets teminated (you can desable it) *
+
+- *EFS*
+
+      - can be attached with 100s of instances across AZs
+      - only for Linux instances (POSIX)
+      - EFS has higher price than EBS
+      - can leverage storage tiers for cost savings
