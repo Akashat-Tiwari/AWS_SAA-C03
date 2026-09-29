@@ -47,4 +47,32 @@
 
   <img width="700" height="600" alt="WhatsApp Image 2026-09-28 at 23 41 43" src="https://github.com/user-attachments/assets/261ce805-5bfb-41e7-8fec-ac54f93dd3da" />
 
-- 
+## ALB
+
+- layer7(HTTP) LB, load balancing to multiple applications on the same machine, support for HTTP/2 and websocket
+- routing tables to different target groups:
+
+      - routing based on path in url (eg. example.com/users), hostname in url (eg. one.example.com) and query string, headers (eg. example.com/users?id=123&order=false)
+
+- ALB are used for microservices and container-based applications (eg. Amazon ECS, docker)
+
+<img width="700" height="9=600" alt="WhatsApp Image 2026-09-30 at 00 12 36" src="https://github.com/user-attachments/assets/1ecd193d-eb46-4845-802e-c70dd39d8fee" />
+
+- Target groups:
+
+      - EC2 instances (can be managed by an ASG)-HTTP
+      - ECS task (managed by ECS itself) -HTTP
+      - Lambda functions
+      - IP address (private only) routing
+      - ALB can route to multiple target groups
+
+<img width="700" height="600" alt="WhatsApp Image 2026-09-30 at 00 23 04" src="https://github.com/user-attachments/assets/c8d317f3-27a6-4169-83d1-d7dff2c76051" />
+
+- good to know:
+
+<img width="700" height="600" alt="WhatsApp Image 2026-09-30 at 00 30 10" src="https://github.com/user-attachments/assets/ceced9ae-4aba-471d-9499-fd7407ba28e1" />
+
+
+ 
+
+  
