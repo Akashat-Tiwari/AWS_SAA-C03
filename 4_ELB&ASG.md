@@ -121,4 +121,65 @@
 
 - to enable stickiness: TG level-> select TG-> actions-> edit attributes-> tun ON stickiness
 
-## 
+## Cross-Zone Load Balancing
+
+<img width="950" height="700" alt="WhatsApp Image 2026-10-03 at 17 47 20" src="https://github.com/user-attachments/assets/4c1e4ffc-c35d-4f19-ae4c-73e0a1fdad56" />
+
+- CLB: disabled by dafault, No charges for inter AZ data if enabled
+- ALB: enabled by default(can be disabled at TG level), No charges for inter AZ data
+- NLB & GWLB: disabled by default, you pay charges for inter AZ data if enabled
+
+## SSL/TLS (x.509 in LB )
+
+- An SSL cert allows traffic between your clients and your LB to be encrypted in transit(in-flight encryption)
+- SSL: secure sockets layer and TLS: Transport Layer Security, new version of SSL (TLS is used nowadays, but SSL is for understanding)
+- public SSL certs are issued by Certificate Authorities (CA), eg. comodo, DigiCert, GoDaddy, Globalsign, etc
+- SSL certs have an expiration data (you set), and must me renewed
+- you can manage certificates using ACM ie AWS Certificate Manager
+- clients can use SNI to specify the hostname they reach
+
+- SNI (Server Name Indication):
+
+      - SNI solves the problem of loading multiple SSL certificates onto one Web Server (to serve multiple websites)
+      - *it's a newer protocol and requires the client to indicate the hostname of the target server in the initial SSL handshake*
+      - only works for ALB & NLB (newer gen), cloudFront and not work for CLB (old gen)
+
+<img width="700" height="650" alt="WhatsApp Image 2026-10-03 at 19 08 55" src="https://github.com/user-attachments/assets/3d2db8be-ee4a-4b9e-af6f-4630e68d1344" />
+
+- CLB: support only one SSL certificate, must use multiple CLB for multiple hostname with multiple SSL certs
+- ALB & NLB: supports multiple listeners with multiple SSL certificates, uses SNI to make it work
+- ALB & NLB => SSL hands on: ADD Listeners-> ....-> import cert from ACM-> thats it
+
+## Connection Draining(CLB)/de-registration delay(ALB,NLB)
+
+- deregistration is the process of removing a target (such as an EC2 instance, IP address, or Lambda function) from a target group.
+- *Once a target is deregistered, the load balancer immediately stops routing new traffic to it*
+- time to complete "in-flights requests" while the instance is de-registering or unhealthy
+- between 1-3600s(default=> 300s), can be disabled(set value to 0), set low value if your requests are short and high if the they are long (good value is 30s)
+
+## Auto Scaling Group(ASG)
+
+- In real life, the load on the websites & application can change, to adjust the server strength accordingly, ASG are used
+- the goal of ASG is to:
+
+      - scale out(add)/scale in(remove) EC2 instances to match the increased/decreased load
+
+- automatically register new instances to a load balancer
+- re-create an EC2 instance in case a previous one is terminated (unhealthly)
+- ASG are free (only pay for instances)
+
+<img width="1280" height="960" alt="image" src="https://github.com/user-attachments/assets/ecb1cd49-30ef-421b-bf6e-85aaf07e3745" />
+
+<img width="1280" height="960" alt="image" src="https://github.com/user-attachments/assets/453dc045-6ca4-415b-8b08-ad0925ad4ee4" />
+
+- ASG Attributes:
+
+      - a launch template: below image
+      - min size/ max size/ initial capacity
+      - scaling policies: it is possible to scale an ASG based on CloudWatch Alarms, an alarm monitors a metric(such as avg CPU, or a custom metric){computed for overall ASG}, so based on these alarms we can create scale-in/scale-out policies
+
+<img width="960" height="1280" alt="image" src="https://github.com/user-attachments/assets/44852ea8-32f7-42aa-bd1b-3f545c39c9aa" />
+
+<img width="888" height="240" alt="image" src="https://github.com/user-attachments/assets/d6f8c7cc-d3c5-4dd7-a379-399d2be1f23c" />
+
+##        
