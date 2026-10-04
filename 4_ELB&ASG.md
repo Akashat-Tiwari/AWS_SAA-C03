@@ -182,4 +182,30 @@
 
 <img width="888" height="240" alt="image" src="https://github.com/user-attachments/assets/d6f8c7cc-d3c5-4dd7-a379-399d2be1f23c" />
 
-##        
+## ASG-scaling policies
+
+### Dynamic scaling
+- target tracking scaling: eg. i want the overall ASG agv CPU to stay at around 40%
+- simple/step scaling: when a cloudWatch alarm is triggered (ex CPU > 70%, then add 2 units) or (ex. CPU < 30%, then remove 1 unit)
+
+### Scheduled scaling
+- anticipate a scaling based on known usage patterns, ex.  increase the min capacity to 10 at 5 PM on Friday
+
+### Predictive scaling
+- continuously forecast/predict load and schedule scaling ahead
+- analyze historical load-> generate forecast-> schedule scaling actions
+
+### good metrics to scale on
+- CPUUtilization: Avg. CPU utilization across your instances
+- RequestCountPerTarget: the no of requests per EC2 instances is stable
+- Avg Network in/out: if your application is network bound
+- any custom metric (using cloudFront)
+
+<img width="960" height="1280" alt="WhatsApp Image 2026-10-04 at 19 04 26" src="https://github.com/user-attachments/assets/47e90d5c-10ca-4ff6-85c4-f52752654391" />
+
+### Scaling cooldowns
+- after a scaling activity happens, your are in the cooldown period (dafault 300 sec or 5 mins)
+- during this cooldown period, the ASG will not launch or terminate the additional instances(to allow for metrices to stabilize)
+- advice:  use-ready-to-use AMI to reduce configuration time in order to reduce the cooldown period
+
+
