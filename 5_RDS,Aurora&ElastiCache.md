@@ -67,4 +67,18 @@
       - synchronization is established b/w the two DBs
 
 
-##  
+### In AWS terms, think of *Sqlectron as a GUI client for a database* *(use to connect to the remote DB), not as an AWS service itself.
+
+## RDS custom
+
+- RDS custom is only for two database types, its for Oracle and Microsoft SQL Server
+- access to OS and underlying database 
+- custom: configure settings, install patches, enable native features, access EC2 instance using SSH or SSM session manager
+- RDS Vs RDS Custom:
+ 
+      - RDS: entire DB and the OS is managed by AWS
+      - RDS custom: full admin access to the underlying DB and the OS
+
+ ## Amazon Aurora
+
+ - 
