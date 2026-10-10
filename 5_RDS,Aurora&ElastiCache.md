@@ -159,4 +159,80 @@
 
 ## RDS & Aurora: Backups & Monitoring
 
-- 
+### RDS Backups
+
+- automated backups:
+
+      - daily full backup of the database, transaction logs are backed-up every 5 mins
+      - 1 to 35 days of retention, set 0 to disable automated backups
+
+- manual DB snapshots:
+
+      - manually triggered by the user, retention of backup for as long as you want
+
+- *TRICK: using DB 2hrs in a month, in a stopped RDS DB, you will still pay for storage, instead you should snapshot and restore to use it again (very less pay)*
+
+### Aurora Backups
+
+- automated backups:
+
+      - 1 to 35 days of retention, cannot be disabled (can be disabled in RDS not here)
+      - point-in-time recovery in that timeframe
+  
+- manual DB snapshots:
+
+      - manually triggered by the user, retention of backup for as long as you want
+
+### RDS & Aurora Restore Options
+
+- restoring a RDS/Aurora backup or a snapshot creates a new database
+- restoring MySQL RDS DB from S3
+
+      - create a backup of your on-premises(concern) DB
+      - store it on the Amazon S3 (object storage)
+      - restore the backup file onto a new RDS instance running MySQL
+  
+- restoring MySQL Aurora cluster from S3
+
+      - create a backup of your on-premises(concern) DB *using Percona XtraBackup*
+      - store it on the Amazon S3 (object storage)
+      - restore the backup file onto a new Aurora cluster running MySQL
+
+### Aurora DB Cloning
+
+- Create a new Aurora DB cluster from an existing one
+- *useful to create a "staging" DB from a "production" DB without impacting the production DB*
+- faster than snapshot & restore, very fast & cost effective
+- uses *copy-on-write* protocol:
+ 
+      - initially, the new DB cluster uses the same data vol as the original DB cluster (fast & efficient as no copying is needed)
+      - when updates are made to the new DB cluster, then additional storage is allocated
+
+## RDS & Aurora SECURITY
+
+- At-rest encryption:
+
+      - DB master & replicas encryption using AWS KMS
+      - if the master is not encrypted, the read replicas cannot be encrypted
+      - to encrypt an un-encrypted DB, go through a DB snapshot & restore as encrypted
+
+- In-flight encryption: TLS-ready by default, use the AWS TLS root certificates client-side
+- IAM authentication: IAM roles to connect to your DB (instead of classic pw & username)
+- security groups: control n/w access to your RDS/Aurora DB
+- *No SSH available except on RDS custom*
+- Audit logs can be enabled and sent to cloudWatch logs for longer retention
+
+## Amazon RDS proxy
+
+- Amazon RDS Proxy is a fully managed, serverless, highly available(multi AZ) database proxy service that sits as an intermediary layer between your application and your Amazon Relational Database Service (RDS) or Aurora databases.
+- Connection Pooling: Opening a new database connection for every request consumes significant CPU and memory. RDS Proxy establishes and maintains a pool of connections to the database, sharing and reusing them across multiple application requests. This prevents the database from becoming overwhelmed under heavy load.
+- *improving DB efficiency by reducing the stress on DB resources (eg. CPU, RAM) and minimize open connections(and timeouts)*
+- *reduced RDS & aurora failover time by upto 66% (If your primary database instance crashes, RDS Proxy automatically detects the failure and reroutes traffic to a standby replica. Because the proxy holds the application's connections open during this process).*
+- *enforce IAM authentication for DB, and securely store credentials in AWS secrets manager*
+- *RDS proxy is never publicly accessible (must be accessed from VPC)*
+
+<img width="700" height="900" alt="WhatsApp Image 2026-10-11 at 01 09 29" src="https://github.com/user-attachments/assets/57b71a54-d57f-4042-b86d-c9399987d0eb" />
+
+## Amazon ElastiCache
+
+##
