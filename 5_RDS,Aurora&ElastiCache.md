@@ -1,4 +1,6 @@
 *Must know: In AWS there's a network cost when data goes from one AZ to another.*
+*Must know: There are only two hard things in Computer Science: Cache invalidation and naming things.*
+
 
 # AWS RDS
 - Relational Database Service: managed(by AWS) DB service that use SQL (Structured Query Language) as a query language
@@ -235,4 +237,81 @@
 
 ## Amazon ElastiCache
 
-##
+### ElastiCache Overview(managed Redis or Memcached)
+
+- caches are in-memory databases with really high performance and low latency
+- helps to reduce the workload of DB, and helps make your application stateless
+- managed by AWS (OS maintenance/patching, optimizations, setup, configuration, monitoring, failure recovery and backups)
+- *Using ElastiCache involves heavy application code changes*
+- ElastiCache currently supports two primary caching engines: Redis and MemCached
+
+### Solution Architecture-DB Cache
+
+- application queries ElastiCache, if not available, get from RDS and store in ElastiCache(for further cache hit)
+- *Cache must have an invalidation strategy to make sure only the most current data is used in here*
+
+<img width="900" height="700" alt="WhatsApp Image 2026-10-11 at 16 21 59" src="https://github.com/user-attachments/assets/ef2b9ef9-2a97-414d-8032-dfc290cd8b6a" />
+
+### Solution Architecture-User Session Store
+
+- user logs into any of the application instance, the application writes the session data into the ElastiCache
+- the user hits another instance of our application, the instance retrieves the data and the user is already logged in(no re-login required)
+  
+<img width="1280" height="889" alt="WhatsApp Image 2026-10-11 at 16 32 10" src="https://github.com/user-attachments/assets/17d200e9-240a-476f-9526-252b53613f64" />
+
+### ElastiCache: Redis Vs MemCached
+
+- Redis: A highly versatile engine that supports complex data structures (lists, sets, hashes), data persistence, replication, and high availability. It is ideal for complex caching, gaming leaderboards, and publish/subscribe messaging.
+- Memcached: A simpler, multithreaded engine designed purely for caching flat objects and scaling out horizontally.
+
+## ElastiCache Security
+
+- ElastiCache supports IAM authentication for redis only(IAM policies provides AWS API-level security)
+- Redis AUTH:
+
+      - you can set a "password/token" when you create a redis cluster
+      - support SSL in flight encryption
+  
+- MemCached:
+
+      - supports SASL(simple authentication and security layer) based authentication
+
+### Patterns for ElastiCache
+
+- lazy loading: all the read data is cached, data can become stale(no longer fresh) in cache
+- write through: Adds or update the data in the cache when written to DB (no stale data)
+- session store: store temporary session data in a cache (using TTL features)
+
+### IMP: ElastiCache- Redis use cases
+
+- Gaming leaderboards (computationally complex)
+- *Redis sorted sets* guarantee both uniqueness and element ordering
+- each time a new element is added, it's ranked in real time, then added in correct order
+
+## "Important Port" vs "RDS-database Port"
+
+- Important ports: FTP: 21, SSH: 22, SFTP: 22 (same as SSH), HTTP: 80, HTTPS: 443
+- RDS Databases ports: PostgreSQL: 5432, MySQL: 3306, Aurora: 5432 (if PostgreSQL compatible) or 3306 (if MySQL compatible), MariaDB: 3306 (same as MySQL)
+
+      - Oracle RDS: 1521, MSSQL Server: 1433
+
+### nice question: 
+
+- Your application running on a fleet of EC2 instances managed by an Auto Scaling Group behind an Application Load Balancer. Users have to constantly log back in and you don't want to enable Sticky Sessions on your ALB as you fear it will overload some EC2 instances. What should you do?
+
+      - storing session data in ElastiCache is a common pattern to ensuring different Ec2 instances can retrieve your user's state if needed
+
+- analytics workload implies reads
+
+- You would like to create a disaster recovery strategy for your RDS PostgreSQL database so that in case of a regional outage the database can be quickly made available for both read and write workloads in another AWS Region. The DR database must be highly available. What do you recommend?
+
+      - create a read replica in different region & enable multi-AZ on the read replica 
+
+
+
+
+
+
+
+
+
