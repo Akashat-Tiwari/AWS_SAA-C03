@@ -17,6 +17,8 @@
 - second level domain: example.com
 
 <img width="650" height="350" alt="image" src="https://github.com/user-attachments/assets/74e0cf89-1029-4f59-a9f5-a25e9e8e9245" />
+
+### Very important thing: visualize it 
 <img width="980" height="545" alt="WhatsApp Image 2026-10-25 at 16 11 03" src="https://github.com/user-attachments/assets/78e32c54-c51c-40dd-9077-d42ecc5366db" />
 
 # Amazon Route 53 
@@ -34,7 +36,7 @@
 - record type: A, or AAAA
 - value eg., 12.34.56.78
 - routing policy: how route53 responds to queries
-- TTL: amount of time the record cached at DNS resolvers
+- **TTL: amount of time the record cached at DNS resolvers.**
 
 ### record types in detail
 
@@ -54,4 +56,14 @@
 
 <img width="880" height="508" alt="WhatsApp Image 2026-10-25 at 18 06 45" src="https://github.com/user-attachments/assets/1dae3c55-1048-4393-8844-2c7026c2c12a" />
 
-## 
+## Route53 - records TTL (Time To Live)
+
+- high TTL: eg., 24 hrs: less traffic on Route53 DNS, possibly outdated records
+- low TTL: eg., 60 sec: more traffic on Route 53 DNS ($$$), records are outdated for less time, easy to change records
+- **Except for Alias records, TTL is mandatory for each DNS record.**
+
+<img width="900" height="700" alt="WhatsApp Image 2026-10-27 at 19 24 49" src="https://github.com/user-attachments/assets/fff1d5da-41d4-4940-afca-1f43a3bb858a" />
+
+## CNAME vs Alias
+
+- 
