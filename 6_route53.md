@@ -66,4 +66,58 @@
 
 ## CNAME vs Alias
 
+- root domain refers to the domain apex/zone apex (google.com), while a non-root domain refers to a subdomain (www.google.com, mail.google.com)
+- AWS resources(LB, cloudFront) expose an AWS hostname: (lb1-123.us.east.elb.amazonaws.com and you want myapp.mydomain.com)
+- CNAME:
+
+      - points a hostname to any other hostname(app.mydomain.com -> blabla.anything.com)
+      - **only for non root domain (something.mydomain.com)**
+
+- Alias: free of charge, native health checkups
+
+      - points a hostname to an AWS resource (app.mydomain.com -> blablaamazonaws.com)
+      - **works for both root and non root domain (mydomain.com)**
+      - automatically recognizes changes in the resource's IP Address
+      - you can't set the TTL (only type of record in which its not mandatory)
+      - Alias record is always of type of A/AAAA for AWS resources (ipv4/ipv6)
+<img width="300" height="580" alt="WhatsApp Image 2026-10-31 at 17 28 21" src="https://github.com/user-attachments/assets/3b9e741a-25cb-457e-9427-b04bf837a068" />
+
+- Alias records TARGETS:
+
+      - Elastic LB, cloudFront distributions, S3 websites (not bucket), API gateway, Route53 record (same Hosted zone)
+      - elastic beanstalk environments, VPC Interface endpoints, global accelerator
+      - *you cannot set an Alias record for an EC2 DNS name*
+
+## Health Checks
 - 
+
+## Route53- Routing Policies
+- word 'routing' doesn't mean 'routing the traffic' or load balancer routing
+- it means how Route53 responds to DNS queries
+- Route53 supports these routing policies: simple, weighted, latency based, failover, geo-location, geo-proximity, multi-value answer 
+
+### Simple
+- typically, route traffic to a single resource
+- can specify multiple values in the same record, *if mutiple values are returned, a random one is chosen by the client*
+- when Alias is enabled, specify only one AWS resource
+- can't be associated with health checks
+<img width="700" height="780" alt="WhatsApp Image 2026-10-31 at 21 31 09" src="https://github.com/user-attachments/assets/82a3c24b-ba1d-4bba-aabf-01a5a2f9f46d" />
+
+### weighted
+- control the % of the request that go to each specific resource
+- assign each record a relative weight: traffic(%) = weight for a specific record/ sum of all the weights for all records
+- weight don't need to sum up to 100
+- DNS record must have the same name and type
+- can be assiciated with health checks
+- assign a weight of 0 to a record to stop sending traffic to a resource,
+- if all the records have weight of 0, then all records will be returned equally
+<img width="700" height="800" alt="WhatsApp Image 2026-10-31 at 22 02 57" src="https://github.com/user-attachments/assets/e2a7d367-1c39-4809-b343-a9c44e62e329" />
+
+### latency based
+- redirect to the resource that has the least latency close to us
+- latency is based/measured on traffic between users and AWS regions
+- can be associated with Health checks(capable of failovers)
+
+### failover
+- 
+ 
