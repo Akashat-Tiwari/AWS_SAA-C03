@@ -89,7 +89,39 @@
       - *you cannot set an Alias record for an EC2 DNS name*
 
 ## Health Checks
-- 
+- http health checks are only for public resources
+- health checks are used for *Automated DNS Failover*
+
+      - 1. HC that monitor an endpoint (application, server, other AWS resource)
+      - 2. HC that monitor other health checks (calculated HCs)
+      - 3. HC that monitor CloudWatch alarms(full control) eg., alarms on RDS, custom metrices ... (helpful for private resources)
+  
+- health checks are integrated with CW metrics
+
+ ### HCs- Monitor an Endpoint
+ - about 15 global health checkers will check the endpoint health
+
+       - healthy/unhealthy threshold: 3 (by default)
+       - interval - 30s (fast health checks- 10s but more cost)
+       - supported protocol: http, https, TCP
+       - if > 18% of health checkers report the endpoint is healthy, route53 consider it healthy else unhealthy
+- health checks pass only when the endpoint responds with the 2xx and 3xx status codes
+- health checks can be setup to pass/fail based on the text in the first 5120 bytes of the response
+- *configure you router/firewall or "security groups" to allow incoming requests from route53 health checkers*
+<img width="600" height="700" alt="WhatsApp Image 2026-11-01 at 18 52 40" src="https://github.com/user-attachments/assets/2cc0dc70-7d3e-4a52-af2c-a8d7a921b34b" />
+
+### HCs- Calculated Health checks
+- combine the result of multiple HCs into single health check, can use AND, OR, or NOT
+- can monitor upto 255 child HCs
+- specify how many of the child health checks need to pass to make the parent health check pass
+- usage: perform maintenance to your website without causing all HCs to fail
+<img width="600" height="800" alt="WhatsApp Image 2026-11-01 at 18 52 40" src="https://github.com/user-attachments/assets/ef575399-2f6d-4a64-8876-33bcbce4b0c7" />
+
+### HCs- Private Hosted Zones
+- Route53 health checkers are outside the VPC
+- they can't access private endpoints(private VPC or on-premises resource)
+- you can create the cloudWatch metric and associate an cloudWatch alarm, then create a health check that checks the alarm itself
+
 
 ## Route53- Routing Policies
 - word 'routing' doesn't mean 'routing the traffic' or load balancer routing
@@ -118,6 +150,7 @@
 - latency is based/measured on traffic between users and AWS regions
 - can be associated with Health checks(capable of failovers)
 
-### failover
+### failover (Active-Passive)
 - 
+  
  
