@@ -151,6 +151,9 @@
 - can be associated with Health checks(capable of failovers)
 
 ### failover (Active-Passive)
+- <img width="650" height="500" alt="WhatsApp Image 2026-11-07 at 00 09 01" src="https://github.com/user-attachments/assets/657ed9b7-855f-478a-868e-59e13d1be5c8" />
+
+### geo-location
 - 
   
  
