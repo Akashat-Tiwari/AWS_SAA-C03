@@ -154,6 +154,29 @@
 - <img width="650" height="500" alt="WhatsApp Image 2026-11-07 at 00 09 01" src="https://github.com/user-attachments/assets/657ed9b7-855f-478a-868e-59e13d1be5c8" />
 
 ### geo-location
+- this routing is based on the user location, specify location by continent, country, or other(if there's is overlapping more precise location is selected)
+- should create a default record (in case there's no match on location)
+- use case: websites localization, restrict content distribution, load balancing
+- can be associated with health checks
+- like French verion for france, german version for germany, and english version as default(other location)
+
+### geo-proximity
+- used when you need to shift traffic from one region to other (by using bias)
+- route traffic to your resources based on the geographic location of users and resources
+- ability to shift more traffic to resources based on the defined **bias**
+- to change the size of the geographic region, specify bias values
+
+      - to expand (1-99): more traffic to the resource
+      - to shrink (-99 to -1): less traffic to the resource
+- resources can be: AWS resources (specify AWS region), NON- AWS resouces (specify the longitude or latitude)
+- to use this feature, you must use **advanced** Route53 traffic flow
+<img width="780" height="500" alt="WhatsApp Image 2026-11-10 at 00 11 59" src="https://github.com/user-attachments/assets/34b7901c-220c-4081-b7bc-2ab6820e8653" />
+
+### IP based routing
+- routing is based on the clients' IP addresses
+- you provide a list of CIDRs for your clients and the corresponding endpoints/locations (user-IP-to-endpoint mappings)
+- use case: reduce network costs, route end users from a particular ISP to a specific endpoint
+<img width="600" height="800" alt="WhatsApp Image 2026-11-10 at 00 34 35" src="https://github.com/user-attachments/assets/d0405711-d5ed-42e5-be46-d944c7e58e04" />
+
+### Multi-Value answer routing
 - 
-  
- 
