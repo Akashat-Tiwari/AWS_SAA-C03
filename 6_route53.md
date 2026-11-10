@@ -80,6 +80,7 @@
       - automatically recognizes changes in the resource's IP Address
       - you can't set the TTL (only type of record in which its not mandatory)
       - Alias record is always of type of A/AAAA for AWS resources (ipv4/ipv6)
+  
 <img width="300" height="580" alt="WhatsApp Image 2026-10-31 at 17 28 21" src="https://github.com/user-attachments/assets/3b9e741a-25cb-457e-9427-b04bf837a068" />
 
 - Alias records TARGETS:
@@ -179,4 +180,45 @@
 <img width="600" height="800" alt="WhatsApp Image 2026-11-10 at 00 34 35" src="https://github.com/user-attachments/assets/d0405711-d5ed-42e5-be46-d944c7e58e04" />
 
 ### Multi-Value answer routing
-- 
+- use when routing traffic to multiple resources, route53 return multiple values/resources
+- can be associated with health checks (return values only for healthy resources)
+- *upto 8 healthy records are returned for each multi-value query*
+- **multi-value is not a substitute for having an ELB**
+
+      - Multi-Value Routing: DNS-level distribution of traffic.
+      - ELB: Actual load balancing of application traffic across multiple servers.
+- record name(www.example.com 3times), record type(A, A, A), value(192.0.2.2, 192.0.2.1, 192.0.2.3), ttl(60,60,60), setID (web1, web2, web3), health check (a,b,c)
+
+## 3rd party(GoDaddy) domains & Route53
+
+### domain registrar Vs DNS service ie **Domain Registrar != DNS service**
+
+- you buy or register your domain name with a domain registrar (by paying annual charges), like GoDaddy, Amazon Route53, etc
+- the domain registrar provides you with a DNS service to manage your DNS record
+- but you can use another DNS service to manage your DNS records
+- example, purchase the domain from GoDaddy and use Amazon Route53 as DNS service to manage your DNS records
+- *DNS delegation* : DNS delegation is the process of telling the internet which nameservers are responsible for resolving your domain. ex: GoDaddy + Route53
+
+      -  You purchase example.com from GoDaddy.
+      - You create a Public Hosted Zone for example.com in Route 53.
+      - Route 53 provides four authoritative nameservers (NS records).
+      - You enter these four nameservers in GoDaddy's domain settings.
+      - When someone searches for example.com, DNS resolvers can find the Route 53 nameservers.
+  
+## Route53 Resolver & Hybrid DNS
+### Route53 resolver
+- by default, Route53 resolver answers DNS queries for: local DN for EC2 instance, records in private hosted zones, records in public hosted zones
+
+### Hybrid DNS
+- Hybrid DNS: Allows "AWS systems (VPC or Route53 resolver)" and "your networks" to resolve each other's internal domain names or DNS queries.
+- networks can be: VPC itself (peered VPC), on premises data centers (connected to direct connect or AWS VPN)  
+
+### Route53 Resolver- Endpoints
+- Route 53 Resolver Endpoints act as communication points between AWS DNS and external DNS servers, such as DNS servers in an on-premises data centre.
+- inbound endpoints: An inbound endpoint allows DNS queries from an external network (on-premises) to enter AWS and be resolved by the Route 53 VPC Resolver.
+
+      - On-premises Client → On-premises DNS Server → Inbound Resolver Endpoint → Route 53 VPC Resolver → AWS Private Hosted Zone → DNS Answer returned.
+- outbound endpoint: An outbound endpoint allows DNS queries originating inside an AWS VPC to be forwarded to external DNS servers, such as an on-premises DNS server.
+
+      - EC2 Instance → Route 53 VPC Resolver → Resolver Forwarding Rule → Outbound Resolver Endpoint → On-premises DNS Server → DNS Answer returned.
+
